@@ -68,7 +68,7 @@
 
                         <li class="c-sidebar-nav-item">
                             <x-utils.link
-                                :href="route('admin.auth.customer.index')"
+                                :href="route('admin.auth.company.index')"
                                 class="c-sidebar-nav-link"
                                 :text="__('Company Management')"
                                 :active="activeClass(Route::is('admin.auth.company.*'), 'c-active')" />
