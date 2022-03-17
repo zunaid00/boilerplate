@@ -3,5 +3,5 @@
 @elseif ($user->isUser())
     @lang('User')
 @else
-    @lang('N/A')
+    @lang('Customer')
 @endif

@@ -124,8 +124,8 @@ Route::group([
             Route::get('deleted', [DeletedCustomerController::class, 'index'])
                 ->name('deleted')
                 ->breadcrumbs(function (Trail $trail) {
-                    $trail->parent('admin.auth.user.index')
-                        ->push(__('Deleted Users'), route('admin.auth.user.deleted'));
+                    $trail->parent('admin.auth.customer.index')
+                        ->push(__('Deleted Users'), route('admin.auth.customer.deleted'));
                 });
 
             Route::get('create', [CustomerController::class, 'create'])
@@ -209,7 +209,7 @@ Route::group([
 
 
 
-// -- -- - -- company
+// = = = = = = = = = = = = = = {{[< - - company- - >]}} = = = = = = = = = = 
 Route::group([
     'prefix' => 'company',
     'as' => 'company.',
@@ -230,6 +230,7 @@ Route::group([
         });
 
     Route::post('/', [CompanyController::class, 'store'])->name('store');
+    Route::get('company', [CompanyController::class, 'show'])->name('show');
 
     Route::group(['prefix' => '{role}'], function () {
         Route::get('edit', [CompanyController::class, 'edit'])
@@ -243,11 +244,6 @@ Route::group([
         Route::delete('/', [CompanyController::class, 'destroy'])->name('destroy');
     });
 });
-
-
-
-
-
 
 
 

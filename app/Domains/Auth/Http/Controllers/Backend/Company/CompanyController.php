@@ -1,114 +1,95 @@
 <?php
 
 namespace App\Domains\Auth\Http\Controllers\Backend\Company;
-
-use App\Domains\Auth\Http\Requests\Backend\Role\DeleteRoleRequest;
-use App\Domains\Auth\Http\Requests\Backend\Role\EditRoleRequest;
-use App\Domains\Auth\Http\Requests\Backend\Role\StoreRoleRequest;
-use App\Domains\Auth\Http\Requests\Backend\Role\UpdateRoleRequest;
 use App\Domains\Auth\Models\Company;
-use App\Domains\Auth\Services\PermissionService;
-use App\Domains\Auth\Services\RoleService;
+use Illuminate\Http\Request;
 
-/**
- * Class RoleController.
- */
-class CompanyController
+class CompanyController 
 {
     /**
-     * @var RoleService
-     */
-    protected $roleService;
-
-    /**
-     * @var PermissionService
-     */
-    protected $permissionService;
-
-    /**
-     * RoleController constructor.
+     * Display a listing of the resource.
      *
-     * @param  RoleService  $roleService
-     * @param  PermissionService  $permissionService
-     */
-    public function __construct(RoleService $roleService, PermissionService $permissionService)
-    {
-        $this->roleService = $roleService;
-        $this->permissionService = $permissionService;
-    }
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   $company = Company::all();
         return view('backend.auth.company.index');
     }
 
     /**
-     * @return mixed
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('backend.auth.company.create')
-            ->withCategories($this->permissionService->getCategorizedPermissions())
-            ->withGeneral($this->permissionService->getUncategorizedPermissions());
+        return view('backend.auth.company.create');
     }
 
     /**
-     * @param  StoreRoleRequest  $request
-     * @return mixed
+     * Store a newly created resource in storage.
      *
-     * @throws \App\Exceptions\GeneralException
-     * @throws \Throwable
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(StoreRoleRequest $request)
+    public function store(Request $request)
     {
-        $company = $this->store($request->validated());
-
-        return redirect()->route('admin.auth.company.index',$company)->withFlashSuccess(__('The company was successfully created.'));
+        $request->validate([
+            'title' => 'required',
+            'address' => 'required',
+            'description' =>'required',
+        ]);
+    
+        Company::create($request->all());
+     
+        return redirect()->route('admin.auth.company.show')
+                        ->with('success','Company created successfully.');
     }
 
     /**
-     * @param  EditRoleRequest  $request
-     * @param  Role  $role
-     * @return mixed
-     */
-    public function edit(EditRoleRequest $request, Role $role)
-    {
-        return view('backend.auth.company.edit')
-            ->withCategories($this->permissionService->getCategorizedPermissions())
-            ->withGeneral($this->permissionService->getUncategorizedPermissions())
-            ->withRole($role)
-            ->withUsedPermissions($role->permissions->modelKeys());
-    }
-
-    /**
-     * @param  UpdateRoleRequest  $request
-     * @param  Role  $role
-     * @return mixed
+     * Display the specified resource.
      *
-     * @throws \App\Exceptions\GeneralException
-     * @throws \Throwable
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRoleRequest $request, Role $role)
+    public function show(Company $company)
     {
-        $this->roleService->update($role, $request->validated());
-
-        return redirect()->route('admin.auth.company.index')->withFlashSuccess(__('The company was successfully updated.'));
+        return view('backend.auth.company.show')
+            ->withUser($company);
     }
 
     /**
-     * @param  DeleteRoleRequest  $request
-     * @param  Role  $role
-     * @return mixed
+     * 
+     * Show the form for editing the specified resource.
      *
-     * @throws \Exception
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(DeleteRoleRequest $request, Role $role)
+    public function edit($id)
     {
-        $this->roleService->destroy($role);
+        //
+    }
 
-        return redirect()->route('admin.auth.company.index')->withFlashSuccess(__('The company was successfully deleted.'));
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 }

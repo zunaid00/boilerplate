@@ -75,6 +75,8 @@ class UsersTable extends DataTableComponent
                     '' => 'Any',
                     User::TYPE_ADMIN => 'Administrators',
                     User::TYPE_USER => 'Users',
+                    User::TYPE_CUSTOMER => 'Customers',
+                
                 ]),
             'active' => Filter::make('Active')
                 ->select([
@@ -100,6 +102,8 @@ class UsersTable extends DataTableComponent
             Column::make(__('Type'))
                 ->sortable(),
             Column::make(__('Name'))
+                ->sortable(),
+            Column::make(__('title'))
                 ->sortable(),
             Column::make(__('E-mail'), 'email')
                 ->sortable(),

@@ -1,4 +1,4 @@
-@inject('model', '\App\Domains\Auth\Models\User')
+@inject('model', '\App\Domains\Auth\Models\Company')
 
 @extends('backend.layouts.app')
 
@@ -20,21 +20,21 @@
                     <div class="form-group row">
                         <label for="name" class="col-md-2 col-form-label">@lang('Title')</label>
                         <div class="col-md-10">
-                            <input type="text" name="name" class="form-control" placeholder="{{ __('Title') }}" value="{{ old('name') }}" maxlength="100" required />
+                            <input type="text" name="title" class="form-control" placeholder="{{ __('Title') }}" value="{{ old('name') }}" maxlength="100" required />
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="name" class="col-md-2 col-form-label">@lang('Description')</label>
                         <div class="col-md-10">
-                            <input type="text" name="name" class="form-control" placeholder="{{ __('Description') }}" value="{{ old('name') }}" maxlength="100" required />
+                            <input type="text" name="description" class="form-control" placeholder="{{ __('Description') }}" value="{{ old('name') }}" maxlength="100" required />
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="name" class="col-md-2 col-form-label">@lang('Address')</label>
                         <div class="col-md-10">
-                            <input type="text" name="name" class="form-control" placeholder="{{ __('Address') }}" value="{{ old('name') }}" maxlength="100" required />
+                            <input type="text" name="address" class="form-control" placeholder="{{ __('Address') }}" value="{{ old('name') }}" maxlength="100" required />
                         </div>
                     </div>
                 

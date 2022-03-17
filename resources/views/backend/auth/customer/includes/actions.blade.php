@@ -1,6 +1,6 @@
 @if ($user->trashed() && $logged_in_user->hasAllAccess())
     <x-utils.form-button
-        :action="route('admin.auth.user.restore', $user)"
+        :action="route('admin.auth.customer.restore', $user)"
         method="patch"
         button-class="btn btn-info btn-sm"
         icon="fas fa-sync-alt"
@@ -16,8 +16,8 @@
     @endif
 @else
     @if ($logged_in_user->hasAllAccess())
-        <x-utils.view-button :href="route('admin.auth.user.show', $user)" />
-        <x-utils.edit-button :href="route('admin.auth.user.edit', $user)" />
+        <x-utils.view-button :href="route('admin.auth.customer.show', $user)" />
+        <x-utils.edit-button :href="route('admin.auth.customer.edit', $user)" />
     @endif
 
     @if (! $user->isActive())

@@ -1,4 +1,4 @@
-@inject('model', '\App\Domains\Auth\Models\User')
+@inject('model', '\App\Domains\Auth\Models\Company')
 
 @extends('backend.layouts.app')
 

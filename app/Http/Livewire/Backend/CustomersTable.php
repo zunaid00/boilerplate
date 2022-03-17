@@ -58,6 +58,7 @@ class CustomersTable extends DataTableComponent
         }
 
         return $query
+            ->where('type','customer')
             ->when($this->getFilter('search'), fn ($query, $term) => $query->search($term))
             ->when($this->getFilter('type'), fn ($query, $type) => $query->where('type', $type))
             ->when($this->getFilter('active'), fn ($query, $active) => $query->where('active', $active === 'yes'))
@@ -100,6 +101,8 @@ class CustomersTable extends DataTableComponent
                 ->sortable(),
             Column::make(__('Name'))
                 ->sortable(),
+            Column::make(__('title'))
+                ->sortable(),
             Column::make(__('E-mail'), 'email')
                 ->sortable(),
             Column::make(__('Verified'), 'email_verified_at')
@@ -117,6 +120,6 @@ class CustomersTable extends DataTableComponent
      */
     public function rowView(): string
     {
-        return 'backend.auth.customers.includes.row';
+        return 'backend.auth.customer.includes.row';
     }
 }
